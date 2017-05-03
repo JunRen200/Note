@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_search"
+        android:title="search"
+        android:icon="@mipmap/ic_menu_search"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/item_a"
+        android:title="缩略图" />
+    <item
+        android:id="@+id/item_b"
+        android:title="排序" />
+    <item
+        android:id="@+id/item_c"
+        android:title="仅显示标题" />
+</menu>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nva_a"
+            android:icon="@mipmap/ic_menu_emoticons"
+            android:title="a" />
+        <item
+            android:id="@+id/nva_b"
+            android:icon="@mipmap/ic_menu_emoticons"
+            android:title="b" />
+        <item
+            android:id="@+id/nva_c"
+            android:icon="@mipmap/ic_menu_emoticons"
+            android:title="c" />
+        <item
+            android:id="@+id/nva_d"
+            android:icon="@mipmap/ic_menu_emoticons"
+            android:title="d" />
+    </group>
+</menu>
