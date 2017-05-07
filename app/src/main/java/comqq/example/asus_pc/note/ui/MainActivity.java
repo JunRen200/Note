@@ -1,4 +1,4 @@
-package comqq.example.asus_pc.note;
+package comqq.example.asus_pc.note.ui;
 
 
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +27,12 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FabScrollListener.HideScrollListener {
+import comqq.example.asus_pc.note.FabScrollListener;
+import comqq.example.asus_pc.note.R;
+import comqq.example.asus_pc.note.adapter.Myadapter;
+import comqq.example.asus_pc.note.db.Notepad;
+
+public class MainActivity extends AppCompatActivity implements FabScrollListener.HideScrollListener ,Myadapter.ToolbarSet {
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
     private RecyclerView recyclerView;
@@ -34,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements FabScrollListener
     private List<Notepad> list;
     private NavigationView navigationView;
     private FloatingActionButton fab_add;
+    final int ON_DELETE=1;
+    final int NO_DELETE=0;
+    private int state=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements FabScrollListener
     private void initView() {
         fab_add = (FloatingActionButton) findViewById(R.id.fab);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        myadapter = new Myadapter(list);
+        myadapter = new Myadapter(list,this);
         recyclerView.setAdapter(myadapter);
         LinearLayoutManager linear = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linear);
@@ -90,16 +99,44 @@ public class MainActivity extends AppCompatActivity implements FabScrollListener
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(state==ON_DELETE) {
+            menu.clear();
+            getMenuInflater().inflate(R.menu.delete_menu, menu);
+        }else if(state==NO_DELETE){
+            menu.clear();
+            getMenuInflater().inflate(R.menu.menu,menu);
+        }
+        return true;
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                if(state==NO_DELETE) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }else if(state==ON_DELETE){
+                    myadapter.setChoose_state();
+                    ActionBar actionBar = getSupportActionBar();
+                    if (actionBar != null) {
+                        actionBar.setDisplayHomeAsUpEnabled(true);
+                        actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu_sort_by_size);
+                    }
+                    state=NO_DELETE;
+                    supportInvalidateOptionsMenu();
+                }
                 break;
             case R.id.item_search:
                 Intent intent = new Intent(MainActivity.this, Activity_search.class);
                 startActivity(intent);
                 break;
+            case R.id.item_delete:
+                myadapter.deleteDate();
+                break;
         }
+
         return true;
     }
 
@@ -116,14 +153,58 @@ public class MainActivity extends AppCompatActivity implements FabScrollListener
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 1:
-                    int state = data.getIntExtra("state",5);
-                    Log.e("AAA",state+"");
-                    if (state == 1) {
-                        initData();
-                        myadapter.setlist(list);
-
-                    }
+                int state=0;
+                if(data!=null) {
+                    state = data.getIntExtra("state", 5);
+                }
+                Log.e("AAA", state + "");
+                if (state == 1) {
+                    initData();
+                    myadapter.setlist(list);
+                }
                 break;
         }
+    }
+
+
+    private void No_DeleteState(){
+        myadapter.setChoose_state();
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu_sort_by_size);
+        }
+        state=NO_DELETE;
+        supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK&&myadapter.getchoose_state()==Myadapter.ON_CHOOSE){
+            No_DeleteState();
+        }else if(keyCode==KeyEvent.KEYCODE_BACK){
+            return super.onKeyDown(keyCode, event);
+        }
+        return true;
+    }
+
+    @Override
+    public void ToolbarDelete() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu_back);
+        }
+        state=ON_DELETE;
+        supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public void openUpdate(Notepad notepad) {
+        Intent intent=new Intent();
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("notepad",notepad);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

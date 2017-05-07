@@ -8,7 +8,7 @@ import android.view.ViewConfiguration;
  */
 
 public class FabScrollListener extends RecyclerView.OnScrollListener {
-    interface HideScrollListener{
+    public interface HideScrollListener{
         public void onShow();
         public void onHide();
     }

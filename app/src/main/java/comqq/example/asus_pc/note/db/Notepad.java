@@ -1,14 +1,15 @@
-package comqq.example.asus_pc.note;
+package comqq.example.asus_pc.note.db;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by asus-pc on 2017/5/3.
  */
 
-public class Notepad extends DataSupport{
+public class Notepad extends DataSupport implements Serializable {
     private String title;
     private Date time;
     private String centent;

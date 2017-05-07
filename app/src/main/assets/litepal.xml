@@ -3,6 +3,6 @@
     <dbname value="note" ></dbname>
     <version value="1" ></version>
     <list>
-        <mapping class="comqq.example.asus_pc.note.Notepad"/>
+        <mapping class="comqq.example.asus_pc.note.db.Notepad"/>
     </list>
 </litepal>

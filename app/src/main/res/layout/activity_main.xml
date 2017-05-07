@@ -5,24 +5,26 @@
     android:id="@+id/draw_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comqq.example.asus_pc.note.MainActivity">
+    tools:context="comqq.example.asus_pc.note.ui.MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
-            android:navigationIcon="@mipmap/ic_launcher"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#00cc77" />
+            android:background="#00c28b"
+            android:navigationIcon="@mipmap/ic_launcher" />
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
-            android:layout_marginTop="?attr/actionBarSize"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:layout_marginTop="?attr/actionBarSize" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -37,8 +39,8 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nva_menu"
-        android:layout_gravity="start"/>
+        app:menu="@menu/nva_menu" />
 
 </android.support.v4.widget.DrawerLayout>

@@ -1,10 +1,12 @@
-package comqq.example.asus_pc.note;
+package comqq.example.asus_pc.note.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+import comqq.example.asus_pc.note.R;
 
 /**
  * Created by asus-pc on 2017/5/3.
