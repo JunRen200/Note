@@ -127,7 +127,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
             txt_title = (TextView) itemView.findViewById(R.id.txt_title);
             txt_content = (TextView) itemView.findViewById(R.id.txt_content);
             txt_time = (TextView) itemView.findViewById(R.id.txt_time);
-        }
+    }
     }
 
     public void setlist(List<Notepad> list) {
@@ -148,13 +148,9 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
         }
     }
     public void deleteDate(){
-        for(int i=0;i<indexlist.length;i++){
+        for(int i=indexlist.length-1;i>=0;i--){
             if(indexlist[i]==1){
                 list.get(i).delete();
-            }
-        }
-        for(int i=0;i<indexlist.length;i++){
-            if(indexlist[i]==1){
                 list.remove(i);
             }
         }

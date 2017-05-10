@@ -11,8 +11,19 @@ import java.util.Date;
 
 public class Notepad extends DataSupport implements Serializable {
     private String title;
+
+
     private Date time;
     private String centent;
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

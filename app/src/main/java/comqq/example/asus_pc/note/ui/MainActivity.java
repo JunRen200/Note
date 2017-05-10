@@ -12,6 +12,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -130,10 +131,18 @@ public class MainActivity extends AppCompatActivity implements FabScrollListener
                 break;
             case R.id.item_search:
                 Intent intent = new Intent(MainActivity.this, Activity_search.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 break;
             case R.id.item_delete:
                 myadapter.deleteDate();
+                break;
+            case R.id.item_list:
+                LinearLayoutManager linear = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(linear);
+                break;
+            case  R.id.item_thumb:
+                GridLayoutManager grid=new GridLayoutManager(MainActivity.this,2);
+                recyclerView.setLayoutManager(grid);
                 break;
         }
 
@@ -201,10 +210,10 @@ public class MainActivity extends AppCompatActivity implements FabScrollListener
 
     @Override
     public void openUpdate(Notepad notepad) {
-        Intent intent=new Intent();
+        Intent intent=new Intent(MainActivity.this,activity_update.class);
         Bundle bundle=new Bundle();
         bundle.putSerializable("notepad",notepad);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 }

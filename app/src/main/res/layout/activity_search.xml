@@ -25,9 +25,19 @@
             android:layout_centerVertical="true"
             android:hint="搜索笔记"/>
     </RelativeLayout>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@mipmap/seach"
         android:layout_centerInParent="true"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="#dddddd"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>
